@@ -6,37 +6,39 @@
 /*   By: gde-win <gde-win@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 22:23:24 by gde-win           #+#    #+#             */
-/*   Updated: 2024/01/07 01:04:05 by gde-win          ###   ########.fr       */
+/*   Updated: 2024/01/10 03:50:11 by gde-win          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-bool	ft_isunique(t_stack *list)
+bool	ft_isunique(t_stack *stack)
 {
-	size_t	i;
-	size_t	j;
+	t_stack	*i;
+	t_stack	*j;
 
-	i = 0;
-	while (i + 1 < list->item_count)
+	i = stack;
+	while (i != stack->prev)
 	{
-		j = i + 1;
-		while (j < list->item_count)
+		j = i->next;
+		while (j != stack)
 		{
-			if (list->stack_A[i] == list->stack_A[j])
+			if (i->value == j->value)
 				return (false);
-			j++;
+			j = j->next;
 		}
-		i++;
+		i = i->next;
 	}
 	return (true);
 }
 
-bool	ft_isinbounds(int n, char *nbr0)
+bool	ft_isdigit_and_inbounds(int n, char *nbr0)
 {
 	char	*nbr1;
 
 	nbr1 = ft_itoa(n);
+	if (nbr1 == NULL)
+		return (false);
 	if (*nbr0 == '+')
 		nbr0++;
 	n = ft_strcmp(nbr1, nbr0);
@@ -46,48 +48,52 @@ bool	ft_isinbounds(int n, char *nbr0)
 	return (true);
 }
 
-bool	ft_isint(t_stack *list)
+bool	ft_isint(t_input *data)
 {
 	size_t	i;
-	size_t	j;
 	int		n;
+	t_stack	*node;
 
 	i = 0;
-	while (i < list->item_count)
+	node = data->a;
+	while (i < data->item_count)
 	{
-		j = 0;
-		n = ft_atoi(list->av_copy[i]);
-		if (ft_isinbounds(n, list->av_copy[i]) == false)
+		n = ft_atoi(data->av_copy[i]);
+		if (ft_isdigit_and_inbounds(n, data->av_copy[i]) == false)
 			return (false);
-		if ((list->av_copy[i][j] == '+' || list->av_copy[i][j] == '-') \
-				&& list->av_copy[i][j + 1] != '\0')
-			j++;
-		while (list->av_copy[i][j] != '\0')
-		{
-			if (ft_isdigit(list->av_copy[i][j]) == 0)
-				return (false);
-			j++;
-		}
-		list->stack_A[i] = n;
+		ft_add_to_stack(n, &node, data);
 		i++;
 	}
 	return (true);
 }
 
-void	ft_check_args(int *ac, char ***av, t_parsed_list *list)
+void	ft_split_arg(char **av, t_input *data)
 {
-	if (*ac < 2)
+	size_t	i;
+
+	i = 1;
+	data->av_copy = ft_split(av[1], ' ');
+	if (data->av_copy == NULL)
+		ft_error(data);
+	data->av_copy_alloc = true;
+	while (data->av_copy[i] != NULL)
+		i++;
+	data->item_count = i;
+}
+
+void	ft_check_args(int ac, char **av, t_input *data)
+{
+	if (ac < 2)
 		exit(EXIT_SUCCESS);
-	if (*ac == 2)
-		ft_split_arg(av, list);
+	if (ac == 2)
+		ft_split_arg(av, data);
 	else
 	{
-		list->item_count = *ac - 1;
-		list->av_copy = *av + 1;
+		data->item_count = ac - 1;
+		data->av_copy = av + 1;
 	}
-	ft_malloc_stack(list);
-	if (ft_isint(list) == false)
-		ft_error(*list);
-	if (ft_isunique(list) == false)
-		ft_error(*list);
+	if (ft_isint(data) == false)
+		ft_error(data);
+	if (ft_isunique(data->a) == false)
+		ft_error(data);
 }

@@ -6,7 +6,7 @@
 /*   By: gde-win <gde-win@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 23:02:43 by gde-win           #+#    #+#             */
-/*   Updated: 2024/01/06 23:48:35 by gde-win          ###   ########.fr       */
+/*   Updated: 2024/01/10 03:52:27 by gde-win          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,35 @@ void	ft_print_swap(char c)
 	ft_printf("s%c\n", c);
 }
 
-void	ft_do_swap(int *stack)
+void	ft_do_swap(t_stack **stack)
 {
-	int	temp;
+	t_stack	*node;
+	t_stack	*temp;
 
-	temp = *stack;
-	*stack = *(stack + 1);
-	*(stack + 1) = temp;
+	node = *stack;
+	*stack = node->next;
+	node->prev->next = node->next;
+	node->next->next->prev = node;
+	node->next->prev = node->prev;
+	node->prev = node->next;
+	temp = node->next->next;
+	node->next->next = node;
+	node->next = temp;
 }
 
-void	ft_call_swap(int *stack_A, int *stack_B)
+void	ft_call_swap(t_stack **a, t_stack **b)
 {
 	char	flag;
 
 	flag = 0;
-	if (stack_A)
+	if (a != NULL)
 	{
-		ft_do_swap(stack_A);
+		ft_do_swap(a);
 		flag += 'a';
 	}
-	if (stack_B)
+	if (b != NULL)
 	{
-		ft_do_swap(stack_B);
+		ft_do_swap(b);
 		flag += 'b';
 	}
 	ft_print_swap(flag);

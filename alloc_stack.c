@@ -6,49 +6,42 @@
 /*   By: gde-win <gde-win@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 17:36:13 by gde-win           #+#    #+#             */
-/*   Updated: 2024/01/07 01:21:37 by gde-win          ###   ########.fr       */
+/*   Updated: 2024/01/10 03:49:28 by gde-win          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stack	*ft_new_item(int value, t_stack *prev)
+int	ft_get_max(t_stack *stack)
 {
-	t_stack	*node;
+	int		max;
+	t_stack	*first;
 
-	node = (t_stack *)malloc(sizeof(t_stack));
-	if (!node)
-		return (NULL);
-	node->value = value;
-	node->next = NULL;
-	node->prev = prev;
-	return (node);
-}
-
-void	ft_malloc_stack(t_stack *list)
-{
-	list->stack_A = (int *)malloc(list->item_count * sizeof(int));
-	if (list->stack_A == NULL)
-		ft_error(*list);
-	list->stack_B = (int *)malloc(list->item_count * sizeof(int));
-	if (list->stack_B == NULL)
+	first = stack;
+	max = stack->value;
+	while (stack->next != first)
 	{
-		free(list->stack_A);
-		ft_error(*list);
+		if (stack->next->value > max)
+			max = stack->next->value;
+		stack = stack->next;
 	}
-	list->stack_alloc = true;
+	return (max);
 }
 
-void	ft_split_arg(char ***av, t_parsed_list *list)
+void	ft_add_to_stack(int value, t_stack **node, t_input *data)
 {
-	size_t	i;
+	t_stack	*prev;
 
-	i = 1;
-	list->av_copy = ft_split((*av)[1], ' ');
-	if (list->av_copy == NULL)
-		ft_error(*list);
-	list->av_copy_alloc = true;
-	while (list->av_copy[i] != NULL)
-		i++;
-	list->item_count = i;
+	prev = *node;
+	*node = (t_stack *)malloc(sizeof(t_stack));
+	if (*node == NULL)
+		ft_error(data);
+	if (data->a == NULL)
+		data->a = *node;
+	else
+		prev->next = *node;
+	(*node)->value = value;
+	(*node)->next = data->a;
+	(*node)->prev = prev;
+	data->a->prev = *node;
 }

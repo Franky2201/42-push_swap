@@ -6,7 +6,7 @@
 #    By: gde-win <gde-win@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/05 18:55:23 by gde-win           #+#    #+#              #
-#    Updated: 2024/01/06 17:39:28 by gde-win          ###   ########.fr        #
+#    Updated: 2024/01/10 03:01:02 by gde-win          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,11 @@ CFLAGS := 	-Wall -Wextra -Werror -I. -fsanitize=address -g
 
 FUNCTIONS :=	push_swap.c \
 				alloc_stack.c \
-				check_args.c
+				check_args.c \
+				push.c \
+				rotate.c \
+				sort.c \
+				swap.c
 
 SRCS := 	$(FUNCTIONS)
 
