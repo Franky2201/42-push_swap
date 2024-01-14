@@ -6,7 +6,7 @@
 /*   By: gde-win <gde-win@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 19:05:50 by gde-win           #+#    #+#             */
-/*   Updated: 2024/01/10 03:48:20 by gde-win          ###   ########.fr       */
+/*   Updated: 2024/01/14 04:44:45 by gde-win          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	main(int ac, char **av)
 
 	ft_bzero(&data, sizeof(t_input));
 	ft_check_args(ac, av, &data);
-	size_t	i = 0;
+//	size_t	i = 0;
 /*	while (i < 3)
 	{
 		ft_printf("add: %p\nn: %p\np: %p\n%i\n\n", data.A, data.A->next, data.A->prev, data.A->value);
@@ -66,25 +66,26 @@ int	main(int ac, char **av)
 		i++;
 	}
 	ft_call_push(&data.B, &data.A, &data);
-*/	while (ft_issorted(data.a) == false)
-	{
+*//*	while (ft_issorted(data.a) == false)
+	{*/
 		ft_sort(&data);
-	}
-	i = 0;
+/*	}*/
+/*	i = 0;
 	ft_printf("A:---------------------------------\n");
-	while (i < 3)
+	while (i < 10)
 	{
 		ft_printf("add: %p\nn: %p\np: %p\n%i\n\n", data.a, data.a->next, data.a->prev, data.a->value);
 		data.a = data.a->next;
 		i++;
 	}
-	i = 0;
+	ft_printf("B: %p\n", data.b);
+*//*	i = 0;
 	ft_printf("B:---------------------------------\n");
-	while (i < 3)
+	while (i < 10)
 	{
 		ft_printf("add: %p\nn: %p\np: %p\n%i\n\n", data.b, data.b->next, data.b->prev, data.b->value);
 		data.b = data.b->next;
 		i++;
 	}
-	ft_free_input(&data);
+*/	ft_free_input(&data);
 }

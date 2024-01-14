@@ -6,7 +6,7 @@
 /*   By: gde-win <gde-win@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 02:04:20 by gde-win           #+#    #+#             */
-/*   Updated: 2024/01/10 03:51:11 by gde-win          ###   ########.fr       */
+/*   Updated: 2024/01/14 04:38:14 by gde-win          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_remove_node(t_stack **stack)
 
 	node = *stack;
 	if (node->next == node)
-		stack = NULL;
+		*stack = NULL;
 	else
 	{
 		*stack = node->next;

@@ -6,11 +6,32 @@
 /*   By: gde-win <gde-win@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 04:31:50 by gde-win           #+#    #+#             */
-/*   Updated: 2024/01/10 23:31:36 by gde-win          ###   ########.fr       */
+/*   Updated: 2024/01/12 01:53:08 by gde-win          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+bool	ft_issamesign(int a, int b)
+{
+	if ((a < 0 && b < 0) || (a >= 0 && b >= 0))
+		return (true);
+	return (false);
+}
+
+int	ft_abs(int a)
+{
+	if (a < 0)
+		return (-a);
+	return (a);
+}
+
+int	ft_return_min_abs(int a, int b)
+{
+	if (ft_abs(a) < ft_abs(b))
+		return (a);
+	return (b);
+}
 
 int	ft_get_max(t_stack *stack)
 {
@@ -45,9 +66,8 @@ bool	ft_isascending(t_stack *stack, t_qualities *info)
 	t_stack		*first;
 
 	info->ascending = true;
-	info->descending = true;
-	if (*stack == NULL)
-		return ;
+	if (stack == NULL)
+		return (true);
 	ft_get_max_pointer(stack, info);
 	first = info->max_pointer->next;
 	stack = first;
@@ -56,9 +76,8 @@ bool	ft_isascending(t_stack *stack, t_qualities *info)
 	{
 		if (stack->value > stack->next->value)
 			info->ascending = false;
-		if (stack->prev->value < stack->value)
-			info->descending = false;
 		stack = stack->next;
 		info->len++;
 	}
+	return (info->ascending);
 }

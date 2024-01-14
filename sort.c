@@ -6,7 +6,7 @@
 /*   By: gde-win <gde-win@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 21:47:15 by gde-win           #+#    #+#             */
-/*   Updated: 2024/01/10 03:51:51 by gde-win          ###   ########.fr       */
+/*   Updated: 2024/01/10 21:43:04 by gde-win          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,6 @@ bool	ft_issorted(t_stack *stack)
 		stack = stack->next;
 	}
 	return (true);
-}
-
-void	ft_big_sort(t_input *data)
-{
-	ft_call_push(&(data->b), &(data->a), data);
 }
 
 void	ft_small_sort(t_input *data)
