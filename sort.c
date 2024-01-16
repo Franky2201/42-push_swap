@@ -6,7 +6,7 @@
 /*   By: gde-win <gde-win@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 21:47:15 by gde-win           #+#    #+#             */
-/*   Updated: 2024/01/10 21:43:04 by gde-win          ###   ########.fr       */
+/*   Updated: 2024/01/16 23:45:56 by gde-win          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,15 @@ bool	ft_issorted(t_stack *stack)
 
 void	ft_small_sort(t_input *data)
 {
-	int		max;
-	size_t	index;
-	t_stack	*stack;
+	size_t	max;
 
-	stack = data->a;
-	max = ft_get_max(stack);
-	index = 0;
-	while (max != stack->value)
-	{
-		stack = stack->next;
-		index++;
-	}
-	if (index == 0)
+	max = (size_t)ft_max((int)data->a->index, (int)data->a->next->index);
+	max = (size_t)ft_max((int)max, (int)data->a->prev->index);
+	if (data->a->index == max)
 		ft_call_rotate(&(data->a), NULL, false);
-	else if (index == 1)
+	else if (data->a->next->index == max)
 		ft_call_rotate(&(data->a), NULL, true);
-	if (ft_issorted(data->a) == false)
+	if (data->a->index > data->a->next->index)
 		ft_call_swap(&(data->a), NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: gde-win <gde-win@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 23:02:43 by gde-win           #+#    #+#             */
-/*   Updated: 2024/01/10 03:52:27 by gde-win          ###   ########.fr       */
+/*   Updated: 2024/01/14 22:17:44 by gde-win          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_do_swap(t_stack **stack)
 	t_stack	*temp;
 
 	node = *stack;
-	*stack = node->next;
+	*stack = (*stack)->next;
 	node->prev->next = node->next;
 	node->next->next->prev = node;
 	node->next->prev = node->prev;

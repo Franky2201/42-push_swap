@@ -6,78 +6,76 @@
 /*   By: gde-win <gde-win@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 04:31:50 by gde-win           #+#    #+#             */
-/*   Updated: 2024/01/12 01:53:08 by gde-win          ###   ########.fr       */
+/*   Updated: 2024/01/17 00:08:31 by gde-win          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-bool	ft_issamesign(int a, int b)
+void	ft_only_rotate(t_input *data, size_t len)
 {
-	if ((a < 0 && b < 0) || (a >= 0 && b >= 0))
-		return (true);
-	return (false);
+	bool	flag;
+
+	flag = false;
+	if (data->a->index < len / 2)
+		flag = true;
+	while (data->a->index != 0)
+		ft_call_rotate(&(data->a), NULL, flag);
 }
 
-int	ft_abs(int a)
+void	ft_reset_costs(t_stack *stack, size_t len_a, size_t len_b)
 {
-	if (a < 0)
-		return (-a);
-	return (a);
+	size_t	i;
+
+	i = 0;
+	while (i < len_b)
+	{
+		stack->cost.total = INT_MAX;
+		stack->cost.ra = len_a;
+		stack->cost.rb = len_b;
+		stack->cost.rra = len_a;
+		stack->cost.rrb = len_b;
+		stack = stack->next;
+		i++;
+	}
 }
 
-int	ft_return_min_abs(int a, int b)
+int	ft_max(int a, int b)
 {
-	if (ft_abs(a) < ft_abs(b))
+	if (a > b)
 		return (a);
 	return (b);
 }
 
-int	ft_get_max(t_stack *stack)
+size_t	ft_stacklen(t_stack *stack, size_t *len)
 {
-	int		max;
-	t_stack	*first;
+	t_stack	*last;
 
-	first = stack;
-	max = stack->value;
-	while (stack->next != first)
-	{
-		if (stack->next->value > max)
-			max = stack->next->value;
-		stack = stack->next;
-	}
-	return (max);
-}
-
-void	ft_get_max_pointer(t_stack *stack, t_qualities *info)
-{
-	info->max = ft_get_max(stack);
-	info->position = 1;
-	while (info->max != stack->value)
+	*len = 0;
+	if (stack == NULL)
+		return (*len);
+	last = stack->prev;
+	*len = 1;
+	while (stack != last)
 	{
 		stack = stack->next;
-		info->position++;
+		(*len)++;
 	}
-	info->max_pointer = stack;
+	return (*len);
 }
 
-bool	ft_isascending(t_stack *stack, t_qualities *info)
+bool	ft_isascending(t_stack *stack)
 {
-	t_stack		*first;
+	t_stack	*last;
 
-	info->ascending = true;
 	if (stack == NULL)
 		return (true);
-	ft_get_max_pointer(stack, info);
-	first = info->max_pointer->next;
-	stack = first;
-	info->len = 1;
-	while (stack->next != first)
+	last = stack->prev;
+	while (stack != last)
 	{
-		if (stack->value > stack->next->value)
-			info->ascending = false;
+		if (stack->index + 1 != stack->next->index && stack->next->index != 0)
+			return (false);
 		stack = stack->next;
-		info->len++;
 	}
-	return (info->ascending);
+	return (true);
 }
