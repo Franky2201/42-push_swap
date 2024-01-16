@@ -6,7 +6,7 @@
 /*   By: gde-win <gde-win@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 19:01:53 by gde-win           #+#    #+#             */
-/*   Updated: 2024/01/17 00:17:11 by gde-win          ###   ########.fr       */
+/*   Updated: 2024/01/17 00:28:13 by gde-win          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_do_push(t_stack **dst, t_stack **src);
 void	ft_do_rotate(t_stack **stack, bool reverse);
 void	ft_do_swap(t_stack **stack);
 void	ft_error(t_input *data);
-void	ft_find_target(t_stack *a, t_stack *b, size_t *j);
+void	ft_find_target(t_stack *a, t_stack *b, size_t *j, size_t *len_a);
 void	ft_free_input(t_input *data);
 void	ft_free_stack(t_stack *data);
 bool	ft_isascending(t_stack *stack);

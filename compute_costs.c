@@ -6,7 +6,7 @@
 /*   By: gde-win <gde-win@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 00:09:41 by gde-win           #+#    #+#             */
-/*   Updated: 2024/01/17 00:11:01 by gde-win          ###   ########.fr       */
+/*   Updated: 2024/01/17 00:27:28 by gde-win          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,17 @@ void	ft_compute_total(t_move *cost)
 	ft_clear_unnecessary_moves(cost, ra_rrb, rr, rrr);
 }
 
-void	ft_find_target(t_stack *a, t_stack *b, size_t *j)
+void	ft_find_target(t_stack *a, t_stack *b, size_t *j, size_t *len_a)
 {
 	if ((a->prev->index < b->index && b->index < a->index) \
 			|| ((a->prev->index > a->index) \
 				&& (a->prev->index < b->index || b->index < a->index)))
 	{
-		b->cost.ra = j;
+		b->cost.ra = *j;
 		if (*j == 0)
 			b->cost.rra = 0;
 		else
-			b->cost.rra = len_a - j;
+			b->cost.rra = *len_a - *j;
 	}
 }
 
@@ -83,7 +83,7 @@ void	ft_compute_costs(t_stack *a, t_stack *b, size_t len_a, size_t len_b)
 		j = 0;
 		while (j < len_a)
 		{
-			ft_find_target(a, b, &j);
+			ft_find_target(a, b, &j, &len_a);
 			a = a->next;
 			j++;
 		}
