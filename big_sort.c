@@ -6,7 +6,7 @@
 /*   By: gde-win <gde-win@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 21:41:07 by gde-win           #+#    #+#             */
-/*   Updated: 2024/01/17 00:12:09 by gde-win          ###   ########.fr       */
+/*   Updated: 2024/01/17 02:58:08 by gde-win          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,11 @@ void	ft_big_sort(t_input *data)
 	size_t	len_b;
 
 	while (ft_isascending(data->a) == false && ft_stacklen(data->a, &len_a) > 3)
+	{
 		ft_call_push(&(data->b), &(data->a), data);
+		if (data->b->index < data->item_count / 2)
+			ft_call_rotate(NULL, &(data->b), false);
+	}
 	if (len_a == 3)
 		ft_small_sort(data);
 	while (data->b != NULL)
